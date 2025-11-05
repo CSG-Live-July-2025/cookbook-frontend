@@ -1,7 +1,7 @@
-export function Welcome() {
+export function Welcome(props) {
   return (
     <div>
-      <h2>Welcome to my React Application!!!</h2>
+      <h2>Welcome {props.name}, to my React Application!!!</h2>
     </div>
   )
 }

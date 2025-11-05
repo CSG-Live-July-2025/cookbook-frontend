@@ -11,10 +11,16 @@ import { RecipesPage } from "./RecipesPage"
 import { Welcome } from './Welcome'
 
 function App() {
+  let name1 = "Matt";
+  let name2 = "Ron";
+  let name3 = "Junior";
+
   return (
     <div>
       <Header />
-      <Welcome />
+      <Welcome name={name1} />
+      <Welcome name={name2} />
+      <Welcome name={name3} />
       <RecipesPage />
       <Footer />
     </div>
