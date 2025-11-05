@@ -1,24 +1,34 @@
 import { RecipesIndex } from "./RecipesIndex";
 import { RecipesNew } from "./RecipesNew";
 
+import axios from "axios";
+import { useState, useEffect } from "react";
+
 // all the data comes from here - api request or where we're create the data
 // to pass data from one component to another - we'd use a prop
+
+// axios - 3rd party package/dependency that allows us to make web requests
+
+// hook - functions that come with react that allow you to 'hook' into specific react functionality
+// React state - useState
 export function RecipesPage() {
-  let recipes = [
-    {
-      id: 1,
-      title: "Raw Eggs",
-      chef: "Peter Jang",
-      image_url: "https://cdn.britannica.com/94/151894-050-F72A5317/Brown-eggs.jpg"
-    },
-    {
-      id: 2,
-      title: "Mud Pie",
-      chef: "Jay Wengrow",
-      image_url: "https://static.onecms.io/wp-content/uploads/sites/9/2017/12/mud-pie-XL-RECIPE2016.jpg"
-    }
-  ];
-  // localhost:3000/recipes
+  // let recipes = [];
+  const [recipes, setRecipes] = useState([]);
+  // recipes - special state variable
+  // setRecipes - special function to change the state variable
+  // ([]) - the default value of the state variable
+  
+  const handleIndex = () => {
+    axios.get("http://localhost:3000/recipes").then((response) => {
+      console.log(response.data);
+      // recipes = response.data;
+      setRecipes(response.data);
+    })
+  }
+  
+  
+  // handleIndex();
+  useEffect(handleIndex, []);
 
   return (
     <div>
