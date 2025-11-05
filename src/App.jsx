@@ -8,11 +8,13 @@
 import { Footer } from "./Footer"
 import { Header } from "./Header"
 import { RecipesPage } from "./RecipesPage"
+import { Welcome } from './Welcome'
 
 function App() {
   return (
     <div>
       <Header />
+      <Welcome />
       <RecipesPage />
       <Footer />
     </div>
