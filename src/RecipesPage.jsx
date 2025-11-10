@@ -36,12 +36,25 @@ export function RecipesPage() {
     setCurrentRecipe(recipe);
   }
 
+  const handleCreate = (params) => {
+    console.log("HandleCreate");
+    axios.post("http://localhost:3000/recipes", params)
+      .then((response) => {
+        console.log(response.data);
+        // setRecipes(response.data); // cannot do this - breaks
+        // let copiedRecipes = Array.from(recipes);
+        // copiedRecipes.push(response.data);
+        // setRecipes(copiedRecipes);
+        setRecipes([...recipes, response.data]); // spread operator
+      })
+  }
+
   // handleIndex();
   useEffect(handleIndex, []);
 
   return (
     <div>
-      <RecipesNew />
+      <RecipesNew onCreate={handleCreate} />
       <RecipesIndex recipes_prop={recipes} onShow={handleShow} />
       <Modal show={isRecipeShowVisible} onClose={() => setIsRecipeShowVisible(false)} >
         <RecipesShow recipe={currentRecipe} />
