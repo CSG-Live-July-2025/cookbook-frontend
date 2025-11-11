@@ -49,6 +49,33 @@ export function RecipesPage() {
       })
   }
 
+  const handleUpdate = (recipe, params) => {
+    console.log("handleUpdate");
+    axios.patch(`http://localhost:3000/recipes/${recipe.id}`, params)
+      .then((response) => {
+        console.log(response.data);
+
+        // Explicit solution
+        // let updatedRecipes = [];
+        // let index = 0;
+        // while (index < recipes.length) {
+        //   if (recipes[index].id === response.data.id) {
+        //     // if the recipe's id that we're looping through equals the id of the recipe we updated, then update use the udpated version of that recipe in the array
+        //     updatedRecipes.push(response.data);
+        //   } else {
+        //     // if the recipe's id doesn't equal the id of the recipe we updated, use the original value of the recipe
+        //     updatedRecipes.push(recipes[index]);
+        //   }
+        //   index += 1
+        // }
+        // setRecipes(updatedRecipes);
+
+        // Ternary Operator solution
+        setRecipes(recipes.map(r => r.id === response.data.id ? response.data : r))
+        setIsRecipeShowVisible(false);
+      })
+  }
+
   // handleIndex();
   useEffect(handleIndex, []);
 
@@ -57,7 +84,7 @@ export function RecipesPage() {
       <RecipesNew onCreate={handleCreate} />
       <RecipesIndex recipes_prop={recipes} onShow={handleShow} />
       <Modal show={isRecipeShowVisible} onClose={() => setIsRecipeShowVisible(false)} >
-        <RecipesShow recipe={currentRecipe} />
+        <RecipesShow recipe={currentRecipe} onUpdate={handleUpdate} />
       </Modal>
     </div>
   );
