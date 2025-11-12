@@ -76,6 +76,17 @@ export function RecipesPage() {
       })
   }
 
+  const handleDestroy = (recipe) => {
+    console.log("handleDestroy");
+    console.log(recipe);
+    axios.delete(`http://localhost:3000/recipes/${recipe.id}`)
+      .then((response) => {
+        console.log(response.data);
+        setRecipes(recipes.filter(r => r.id !== recipe.id));
+        setIsRecipeShowVisible(false);
+      })
+  }
+
   // handleIndex();
   useEffect(handleIndex, []);
 
@@ -84,7 +95,7 @@ export function RecipesPage() {
       <RecipesNew onCreate={handleCreate} />
       <RecipesIndex recipes_prop={recipes} onShow={handleShow} />
       <Modal show={isRecipeShowVisible} onClose={() => setIsRecipeShowVisible(false)} >
-        <RecipesShow recipe={currentRecipe} onUpdate={handleUpdate} />
+        <RecipesShow recipe={currentRecipe} onUpdate={handleUpdate} onDestroy={handleDestroy} />
       </Modal>
     </div>
   );
